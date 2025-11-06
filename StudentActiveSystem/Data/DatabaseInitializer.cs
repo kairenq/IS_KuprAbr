@@ -1,0 +1,164 @@
+using System;
+using System.Data.SQLite;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace StudentActiveSystem.Data
+{
+    public static class DatabaseInitializer
+    {
+        public static void Initialize()
+        {
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "StudentActive.db");
+            string directory = Path.GetDirectoryName(dbPath)!;
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            bool isNewDatabase = !File.Exists(dbPath);
+
+            if (isNewDatabase)
+            {
+                SQLiteConnection.CreateFile(dbPath);
+            }
+
+            using (var connection = DatabaseContext.GetConnection())
+            {
+                connection.Open();
+
+                // Создание таблицы пользователей
+                string createUsersTable = @"
+                    CREATE TABLE IF NOT EXISTS Users (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Username TEXT NOT NULL UNIQUE,
+                        PasswordHash TEXT NOT NULL,
+                        FullName TEXT NOT NULL,
+                        CreatedAt TEXT NOT NULL,
+                        IsAdmin INTEGER NOT NULL DEFAULT 0
+                    )";
+
+                // Создание таблицы групп
+                string createGroupsTable = @"
+                    CREATE TABLE IF NOT EXISTS Groups (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Name TEXT NOT NULL UNIQUE,
+                        Faculty TEXT NOT NULL,
+                        Course INTEGER NOT NULL
+                    )";
+
+                // Создание таблицы ролей
+                string createRolesTable = @"
+                    CREATE TABLE IF NOT EXISTS Roles (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Name TEXT NOT NULL UNIQUE,
+                        Description TEXT NOT NULL
+                    )";
+
+                // Создание таблицы студентов
+                string createStudentsTable = @"
+                    CREATE TABLE IF NOT EXISTS Students (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        FullName TEXT NOT NULL,
+                        GroupId INTEGER NOT NULL,
+                        RoleId INTEGER,
+                        Email TEXT,
+                        Phone TEXT,
+                        FOREIGN KEY (GroupId) REFERENCES Groups(Id),
+                        FOREIGN KEY (RoleId) REFERENCES Roles(Id)
+                    )";
+
+                using (var command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = createUsersTable;
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = createGroupsTable;
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = createRolesTable;
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = createStudentsTable;
+                    command.ExecuteNonQuery();
+                }
+
+                // Если база данных новая, добавим тестовые данные
+                if (isNewDatabase)
+                {
+                    SeedData(connection);
+                }
+            }
+        }
+
+        private static void SeedData(SQLiteConnection connection)
+        {
+            using (var command = new SQLiteCommand(connection))
+            {
+                // Добавление администратора по умолчанию (admin/admin)
+                string adminPasswordHash = HashPassword("admin");
+                command.CommandText = @"
+                    INSERT INTO Users (Username, PasswordHash, FullName, CreatedAt, IsAdmin)
+                    VALUES ('admin', @PasswordHash, 'Администратор', @CreatedAt, 1)";
+                command.Parameters.AddWithValue("@PasswordHash", adminPasswordHash);
+                command.Parameters.AddWithValue("@CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+
+                // Добавление ролей по умолчанию
+                string[] roles = new[]
+                {
+                    ("Староста", "Староста группы"),
+                    ("Заместитель старосты", "Заместитель старосты группы"),
+                    ("Физорг", "Физорг группы"),
+                    ("Культорг", "Культорг группы"),
+                    ("Профорг", "Профорг группы"),
+                    ("Студент", "Обычный студент")
+                };
+
+                foreach (var (name, description) in roles)
+                {
+                    command.CommandText = @"
+                        INSERT INTO Roles (Name, Description)
+                        VALUES (@Name, @Description)";
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Description", description);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                }
+
+                // Добавление примеров групп
+                string[] groups = new[]
+                {
+                    ("ИС-21-1", "Информационные системы", 4),
+                    ("ИС-22-1", "Информационные системы", 3),
+                    ("ПИ-21-1", "Прикладная информатика", 4),
+                    ("ПИ-22-1", "Прикладная информатика", 3)
+                };
+
+                foreach (var (name, faculty, course) in groups)
+                {
+                    command.CommandText = @"
+                        INSERT INTO Groups (Name, Faculty, Course)
+                        VALUES (@Name, @Faculty, @Course)";
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Faculty", faculty);
+                    command.Parameters.AddWithValue("@Course", course);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                }
+            }
+        }
+
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(bytes);
+            }
+        }
+    }
+}
