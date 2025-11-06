@@ -224,8 +224,10 @@ namespace StudentActiveSystem.Forms
         {
             try
             {
+                // Путь к инструкции в корне проекта (на 4 уровня выше от bin/Release/net6.0-windows)
                 string instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "Resources", "Инструкция_пользователя.docx");
+                    "..", "..", "..", "..", "Инструкция_пользователя.rtf");
+                instructionPath = Path.GetFullPath(instructionPath);
 
                 if (File.Exists(instructionPath))
                 {
