@@ -108,7 +108,7 @@ namespace StudentActiveSystem.Data
                 command.Parameters.Clear();
 
                 // Добавление ролей по умолчанию
-                string[] roles = new[]
+                var roles = new[]
                 {
                     ("Староста", "Староста группы"),
                     ("Заместитель старосты", "Заместитель старосты группы"),
@@ -118,19 +118,19 @@ namespace StudentActiveSystem.Data
                     ("Студент", "Обычный студент")
                 };
 
-                foreach (var (name, description) in roles)
+                foreach (var role in roles)
                 {
                     command.CommandText = @"
                         INSERT INTO Roles (Name, Description)
                         VALUES (@Name, @Description)";
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Description", description);
+                    command.Parameters.AddWithValue("@Name", role.Item1);
+                    command.Parameters.AddWithValue("@Description", role.Item2);
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                 }
 
                 // Добавление примеров групп
-                string[] groups = new[]
+                var groups = new[]
                 {
                     ("ИС-21-1", "Информационные системы", 4),
                     ("ИС-22-1", "Информационные системы", 3),
@@ -138,14 +138,14 @@ namespace StudentActiveSystem.Data
                     ("ПИ-22-1", "Прикладная информатика", 3)
                 };
 
-                foreach (var (name, faculty, course) in groups)
+                foreach (var group in groups)
                 {
                     command.CommandText = @"
                         INSERT INTO Groups (Name, Faculty, Course)
                         VALUES (@Name, @Faculty, @Course)";
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Faculty", faculty);
-                    command.Parameters.AddWithValue("@Course", course);
+                    command.Parameters.AddWithValue("@Name", group.Item1);
+                    command.Parameters.AddWithValue("@Faculty", group.Item2);
+                    command.Parameters.AddWithValue("@Course", group.Item3);
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                 }
