@@ -29,7 +29,7 @@ namespace StudentActiveSystem.Forms
         private void InitializeComponent()
         {
             this.Text = "Вход в систему - Студенческий актив";
-            this.Size = new Size(450, 400);
+            this.Size = new Size(600, 520);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -38,8 +38,8 @@ namespace StudentActiveSystem.Forms
             // Главная панель
             panelMain = new Panel
             {
-                Size = new Size(350, 320),
-                Location = new Point(50, 30),
+                Size = new Size(480, 420),
+                Location = new Point(60, 40),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -48,11 +48,11 @@ namespace StudentActiveSystem.Forms
             lblTitle = new Label
             {
                 Text = "СТУДЕНЧЕСКИЙ АКТИВ",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Font = new Font("Segoe UI", 18, FontStyle.Bold),
                 ForeColor = Color.FromArgb(41, 128, 185),
                 AutoSize = false,
-                Size = new Size(300, 40),
-                Location = new Point(25, 20),
+                Size = new Size(420, 50),
+                Location = new Point(30, 25),
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
@@ -60,34 +60,34 @@ namespace StudentActiveSystem.Forms
             lblUsername = new Label
             {
                 Text = "Имя пользователя:",
-                Location = new Point(30, 80),
+                Location = new Point(40, 100),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 10)
+                Font = new Font("Segoe UI", 11)
             };
 
             // Поле имени пользователя
             txtUsername = new TextBox
             {
-                Location = new Point(30, 105),
-                Size = new Size(290, 30),
-                Font = new Font("Segoe UI", 11)
+                Location = new Point(40, 130),
+                Size = new Size(400, 35),
+                Font = new Font("Segoe UI", 12)
             };
 
             // Метка пароля
             lblPassword = new Label
             {
                 Text = "Пароль:",
-                Location = new Point(30, 145),
+                Location = new Point(40, 185),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 10)
+                Font = new Font("Segoe UI", 11)
             };
 
             // Поле пароля
             txtPassword = new TextBox
             {
-                Location = new Point(30, 170),
-                Size = new Size(290, 30),
-                Font = new Font("Segoe UI", 11),
+                Location = new Point(40, 215),
+                Size = new Size(400, 35),
+                Font = new Font("Segoe UI", 12),
                 PasswordChar = '●'
             };
 
@@ -95,12 +95,12 @@ namespace StudentActiveSystem.Forms
             btnLogin = new Button
             {
                 Text = "Войти",
-                Location = new Point(30, 220),
-                Size = new Size(140, 40),
+                Location = new Point(40, 275),
+                Size = new Size(190, 45),
                 BackColor = Color.FromArgb(52, 152, 219),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnLogin.FlatAppearance.BorderSize = 0;
@@ -110,12 +110,12 @@ namespace StudentActiveSystem.Forms
             btnRegister = new Button
             {
                 Text = "Регистрация",
-                Location = new Point(180, 220),
-                Size = new Size(140, 40),
+                Location = new Point(250, 275),
+                Size = new Size(190, 45),
                 BackColor = Color.FromArgb(46, 204, 113),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnRegister.FlatAppearance.BorderSize = 0;
@@ -125,12 +125,12 @@ namespace StudentActiveSystem.Forms
             btnInstruction = new Button
             {
                 Text = "📖 Инструкция пользователя",
-                Location = new Point(30, 270),
-                Size = new Size(290, 35),
+                Location = new Point(40, 345),
+                Size = new Size(400, 45),
                 BackColor = Color.FromArgb(155, 89, 182),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnInstruction.FlatAppearance.BorderSize = 0;
@@ -226,7 +226,7 @@ namespace StudentActiveSystem.Forms
             {
                 // Путь к инструкции в корне проекта (на 4 уровня выше от bin/Release/net6.0-windows)
                 string instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "..", "..", "..", "..", "Инструкция_пользователя.rtf");
+                    "..", "..", "..", "..", "Инструкция_пользователя.docx");
                 instructionPath = Path.GetFullPath(instructionPath);
 
                 if (File.Exists(instructionPath))

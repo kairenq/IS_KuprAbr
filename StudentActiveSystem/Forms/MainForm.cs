@@ -53,7 +53,7 @@ namespace StudentActiveSystem.Forms
         private void InitializeComponent()
         {
             this.Text = "Студенческий актив - Главное меню";
-            this.Size = new Size(1000, 650);
+            this.Size = new Size(1280, 800);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(240, 244, 248);
 
@@ -61,11 +61,11 @@ namespace StudentActiveSystem.Forms
             lblWelcome = new Label
             {
                 Text = $"Добро пожаловать, {_fullName}!",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
+                Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 ForeColor = Color.FromArgb(41, 128, 185),
                 AutoSize = false,
-                Size = new Size(960, 40),
-                Location = new Point(20, 10),
+                Size = new Size(1220, 50),
+                Location = new Point(30, 15),
                 TextAlign = ContentAlignment.MiddleLeft
             };
             this.Controls.Add(lblWelcome);
@@ -73,8 +73,8 @@ namespace StudentActiveSystem.Forms
             // Вкладки
             tabControl = new TabControl
             {
-                Location = new Point(20, 60),
-                Size = new Size(960, 540)
+                Location = new Point(30, 80),
+                Size = new Size(1220, 670)
             };
 
             // Вкладка "Студенты"
@@ -101,8 +101,8 @@ namespace StudentActiveSystem.Forms
             // DataGridView для студентов
             dgvStudents = new DataGridView
             {
-                Location = new Point(10, 50),
-                Size = new Size(930, 400),
+                Location = new Point(15, 60),
+                Size = new Size(1180, 520),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -112,16 +112,16 @@ namespace StudentActiveSystem.Forms
             };
 
             // Кнопки управления
-            btnAddStudent = CreateButton("Добавить студента", 10, 460, Color.FromArgb(46, 204, 113));
+            btnAddStudent = CreateButton("Добавить студента", 15, 595, Color.FromArgb(46, 204, 113));
             btnAddStudent.Click += BtnAddStudent_Click;
 
-            btnEditStudent = CreateButton("Редактировать", 200, 460, Color.FromArgb(52, 152, 219));
+            btnEditStudent = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
             btnEditStudent.Click += BtnEditStudent_Click;
 
-            btnDeleteStudent = CreateButton("Удалить", 390, 460, Color.FromArgb(231, 76, 60));
+            btnDeleteStudent = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
             btnDeleteStudent.Click += BtnDeleteStudent_Click;
 
-            btnRefreshStudents = CreateButton("Обновить", 580, 460, Color.FromArgb(155, 89, 182));
+            btnRefreshStudents = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
             btnRefreshStudents.Click += (s, e) => LoadStudents();
 
             tabStudents.Controls.Add(dgvStudents);
@@ -135,8 +135,8 @@ namespace StudentActiveSystem.Forms
         {
             dgvGroups = new DataGridView
             {
-                Location = new Point(10, 50),
-                Size = new Size(930, 400),
+                Location = new Point(15, 60),
+                Size = new Size(1180, 520),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -145,16 +145,16 @@ namespace StudentActiveSystem.Forms
                 BackgroundColor = Color.White
             };
 
-            btnAddGroup = CreateButton("Добавить группу", 10, 460, Color.FromArgb(46, 204, 113));
+            btnAddGroup = CreateButton("Добавить группу", 15, 595, Color.FromArgb(46, 204, 113));
             btnAddGroup.Click += BtnAddGroup_Click;
 
-            btnEditGroup = CreateButton("Редактировать", 200, 460, Color.FromArgb(52, 152, 219));
+            btnEditGroup = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
             btnEditGroup.Click += BtnEditGroup_Click;
 
-            btnDeleteGroup = CreateButton("Удалить", 390, 460, Color.FromArgb(231, 76, 60));
+            btnDeleteGroup = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
             btnDeleteGroup.Click += BtnDeleteGroup_Click;
 
-            btnRefreshGroups = CreateButton("Обновить", 580, 460, Color.FromArgb(155, 89, 182));
+            btnRefreshGroups = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
             btnRefreshGroups.Click += (s, e) => LoadGroups();
 
             tabGroups.Controls.Add(dgvGroups);
@@ -168,8 +168,8 @@ namespace StudentActiveSystem.Forms
         {
             dgvRoles = new DataGridView
             {
-                Location = new Point(10, 50),
-                Size = new Size(930, 400),
+                Location = new Point(15, 60),
+                Size = new Size(1180, 520),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -178,16 +178,16 @@ namespace StudentActiveSystem.Forms
                 BackgroundColor = Color.White
             };
 
-            btnAddRole = CreateButton("Добавить роль", 10, 460, Color.FromArgb(46, 204, 113));
+            btnAddRole = CreateButton("Добавить роль", 15, 595, Color.FromArgb(46, 204, 113));
             btnAddRole.Click += BtnAddRole_Click;
 
-            btnEditRole = CreateButton("Редактировать", 200, 460, Color.FromArgb(52, 152, 219));
+            btnEditRole = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
             btnEditRole.Click += BtnEditRole_Click;
 
-            btnDeleteRole = CreateButton("Удалить", 390, 460, Color.FromArgb(231, 76, 60));
+            btnDeleteRole = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
             btnDeleteRole.Click += BtnDeleteRole_Click;
 
-            btnRefreshRoles = CreateButton("Обновить", 580, 460, Color.FromArgb(155, 89, 182));
+            btnRefreshRoles = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
             btnRefreshRoles.Click += (s, e) => LoadRoles();
 
             tabRoles.Controls.Add(dgvRoles);
@@ -203,11 +203,11 @@ namespace StudentActiveSystem.Forms
             {
                 Text = text,
                 Location = new Point(x, y),
-                Size = new Size(180, 40),
+                Size = new Size(220, 45),
                 BackColor = color,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             button.FlatAppearance.BorderSize = 0;
