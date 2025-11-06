@@ -1,41 +1,40 @@
 @echo off
-chcp 65001 >nul
 cls
-echo ╔════════════════════════════════════════════════════════╗
-echo ║          СБОРКА ПРОЕКТА "СТУДЕНЧЕСКИЙ АКТИВ"          ║
-echo ╚════════════════════════════════════════════════════════╝
+echo ========================================
+echo   Building Student Active System
+echo ========================================
 echo.
-echo Начинаем сборку проекта...
+echo Starting build process...
 echo.
 
 cd StudentActiveSystem
 
-echo [1/3] Восстановление пакетов NuGet...
+echo [1/3] Restoring NuGet packages...
 dotnet restore
 if %errorlevel% neq 0 (
     echo.
-    echo [ОШИБКА] Не удалось восстановить пакеты!
-    echo Убедитесь, что установлен .NET 6.0 SDK
+    echo ERROR: Failed to restore packages!
+    echo Make sure .NET 6.0 SDK is installed
     pause
     exit /b 1
 )
 
 echo.
-echo [2/3] Сборка проекта (Release)...
+echo [2/3] Building project (Release)...
 dotnet build -c Release
 if %errorlevel% neq 0 (
     echo.
-    echo [ОШИБКА] Сборка завершилась с ошибками!
+    echo ERROR: Build failed!
     pause
     exit /b 1
 )
 
 echo.
-echo [3/3] Публикация приложения...
+echo [3/3] Publishing application...
 dotnet publish -c Release -r win-x64 --self-contained false
 if %errorlevel% neq 0 (
     echo.
-    echo [ОШИБКА] Публикация завершилась с ошибками!
+    echo ERROR: Publish failed!
     pause
     exit /b 1
 )
@@ -43,13 +42,13 @@ if %errorlevel% neq 0 (
 cd ..
 
 echo.
-echo ╔════════════════════════════════════════════════════════╗
-echo ║              СБОРКА ЗАВЕРШЕНА УСПЕШНО!                ║
-echo ╚════════════════════════════════════════════════════════╝
+echo ========================================
+echo   BUILD COMPLETED SUCCESSFULLY!
+echo ========================================
 echo.
-echo Файлы находятся в папке:
+echo Files location:
 echo StudentActiveSystem\bin\Release\net6.0-windows\
 echo.
-echo Для запуска используйте файл Запуск.bat
+echo To run the app use: Zapusk.bat
 echo.
 pause

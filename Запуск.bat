@@ -1,22 +1,17 @@
 @echo off
-chcp 65001 >nul
 cls
-echo ╔════════════════════════════════════════════════════════╗
-echo ║     ИНФОРМАЦИОННАЯ СИСТЕМА "СТУДЕНЧЕСКИЙ АКТИВ"       ║
-echo ╚════════════════════════════════════════════════════════╝
-echo.
-echo Запуск приложения...
+echo Starting Student Active System...
 echo.
 
 cd StudentActiveSystem\bin\Release\net6.0-windows
 
 if exist StudentActiveSystem.exe (
     start StudentActiveSystem.exe
-    echo Приложение успешно запущено!
+    echo Application started successfully!
 ) else (
-    echo [ОШИБКА] Приложение не найдено!
+    echo ERROR: Application not found!
     echo.
-    echo Пожалуйста, сначала соберите проект используя файл Сборка.bat
+    echo Please build the project first using Sborka.bat
     echo.
     pause
 )
