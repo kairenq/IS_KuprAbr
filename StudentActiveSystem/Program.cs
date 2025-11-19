@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using StudentActiveSystem.Data;
+using StudentActiveSystem.Forms;
 
 namespace StudentActiveSystem
 {
@@ -16,7 +17,12 @@ namespace StudentActiveSystem
             DatabaseInitializer.Initialize();
 
             // Запуск формы логина
-            Application.Run(new Forms.LoginForm());
+            var loginForm = new LoginForm();
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                // Запуск главной формы после успешного входа
+                Application.Run(new MainForm(loginForm.UserId, loginForm.LoggedInFullName, loginForm.IsAdmin));
+            }
         }
     }
 }

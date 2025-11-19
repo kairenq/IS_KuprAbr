@@ -25,6 +25,7 @@ namespace StudentActiveSystem.Forms
         public string LoggedInUser { get; private set; } = string.Empty;
         public string LoggedInFullName { get; private set; } = string.Empty;
         public bool IsAdmin { get; private set; }
+        public int UserId { get; private set; }
 
         public LoginForm()
         {
@@ -220,7 +221,7 @@ namespace StudentActiveSystem.Forms
                 using (var connection = DatabaseContext.GetConnection())
                 {
                     connection.Open();
-                    string query = "SELECT FullName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
+                    string query = "SELECT Id, FullName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Username", txtUsername.Text);
@@ -230,9 +231,10 @@ namespace StudentActiveSystem.Forms
                         {
                             if (reader.Read())
                             {
+                                UserId = reader.GetInt32(0);
                                 LoggedInUser = txtUsername.Text;
-                                LoggedInFullName = reader.GetString(0);
-                                IsAdmin = reader.GetInt32(1) == 1;
+                                LoggedInFullName = reader.GetString(1);
+                                IsAdmin = reader.GetInt32(2) == 1;
                                 this.DialogResult = DialogResult.OK;
                                 this.Close();
                             }
