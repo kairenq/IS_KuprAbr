@@ -15,6 +15,7 @@ namespace StudentActiveSystem.Forms
         private Button btnSave;
         private Button btnCancel;
         private Label lblTitle;
+        private Panel panelHeader;
 
         public GroupEditForm(int? groupId = null)
         {
@@ -29,48 +30,59 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = _groupId.HasValue ? "Редактирование группы" : "Добавление группы";
-            this.Size = new Size(500, 380);
+            this.Text = _groupId.HasValue ? "Редактирование участка" : "Добавление участка";
+            this.Size = new Size(520, 420);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(240, 244, 248);
+            this.BackColor = Color.White;
+
+            // Верхняя панель
+            panelHeader = new Panel
+            {
+                Size = new Size(520, 60),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(140, 20, 20)
+            };
 
             lblTitle = new Label
             {
-                Text = _groupId.HasValue ? "РЕДАКТИРОВАНИЕ ГРУППЫ" : "ДОБАВЛЕНИЕ ГРУППЫ",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                ForeColor = Color.FromArgb(52, 152, 219),
-                Location = new Point(20, 20),
-                AutoSize = true
+                Text = _groupId.HasValue ? "РЕДАКТИРОВАНИЕ УЧАСТКА" : "ДОБАВЛЕНИЕ УЧАСТКА",
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = false,
+                Size = new Size(520, 60),
+                Location = new Point(0, 0),
+                TextAlign = ContentAlignment.MiddleCenter
             };
+            panelHeader.Controls.Add(lblTitle);
 
-            Label lblName = new Label { Text = "Название группы:", Location = new Point(20, 70), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            txtName = new TextBox { Location = new Point(20, 95), Size = new Size(440, 30), Font = new Font("Segoe UI", 11) };
+            Label lblName = new Label { Text = "Название участка:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            txtName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblFaculty = new Label { Text = "Факультет:", Location = new Point(20, 135), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            txtFaculty = new TextBox { Location = new Point(20, 160), Size = new Size(440, 30), Font = new Font("Segoe UI", 11) };
+            Label lblFaculty = new Label { Text = "Адрес:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            txtFaculty = new TextBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblCourse = new Label { Text = "Курс:", Location = new Point(20, 200), AutoSize = true, Font = new Font("Segoe UI", 10) };
+            Label lblCourse = new Label { Text = "Номер участка:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
             numCourse = new NumericUpDown
             {
-                Location = new Point(20, 225),
-                Size = new Size(440, 30),
-                Font = new Font("Segoe UI", 11),
+                Location = new Point(30, 235),
+                Size = new Size(440, 28),
+                Font = new Font("Arial", 11),
                 Minimum = 1,
-                Maximum = 6,
-                Value = 1
+                Maximum = 9999,
+                Value = 1001
             };
 
             btnSave = new Button
             {
                 Text = "Сохранить",
-                Location = new Point(20, 280),
-                Size = new Size(200, 40),
-                BackColor = Color.FromArgb(46, 204, 113),
+                Location = new Point(30, 300),
+                Size = new Size(210, 42),
+                BackColor = Color.FromArgb(140, 20, 20),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnSave.FlatAppearance.BorderSize = 0;
@@ -79,18 +91,18 @@ namespace StudentActiveSystem.Forms
             btnCancel = new Button
             {
                 Text = "Отмена",
-                Location = new Point(260, 280),
-                Size = new Size(200, 40),
-                BackColor = Color.FromArgb(231, 76, 60),
+                Location = new Point(260, 300),
+                Size = new Size(210, 42),
+                BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
             btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
 
-            this.Controls.AddRange(new Control[] { lblTitle, lblName, txtName, lblFaculty, txtFaculty, lblCourse, numCourse, btnSave, btnCancel });
+            this.Controls.AddRange(new Control[] { panelHeader, lblName, txtName, lblFaculty, txtFaculty, lblCourse, numCourse, btnSave, btnCancel });
         }
 
         private void LoadGroupData()
@@ -118,7 +130,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки данных группы: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки данных участка: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -127,14 +139,14 @@ namespace StudentActiveSystem.Forms
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Пожалуйста, введите название группы!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите название участка!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtFaculty.Text))
             {
-                MessageBox.Show("Пожалуйста, введите факультет!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите адрес участка!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -170,7 +182,7 @@ namespace StudentActiveSystem.Forms
                     }
                 }
 
-                MessageBox.Show("Группа успешно сохранена!", "Успех",
+                MessageBox.Show("Участок успешно сохранен!", "Успех",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();

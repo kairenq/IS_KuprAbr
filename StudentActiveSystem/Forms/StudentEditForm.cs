@@ -17,6 +17,7 @@ namespace StudentActiveSystem.Forms
         private Button btnSave;
         private Button btnCancel;
         private Label lblTitle;
+        private Panel panelHeader;
 
         public StudentEditForm(int? studentId = null)
         {
@@ -32,46 +33,57 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = _studentId.HasValue ? "Редактирование студента" : "Добавление студента";
-            this.Size = new Size(500, 480);
+            this.Text = _studentId.HasValue ? "Редактирование члена комиссии" : "Добавление члена комиссии";
+            this.Size = new Size(520, 520);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(240, 244, 248);
+            this.BackColor = Color.White;
+
+            // Верхняя панель
+            panelHeader = new Panel
+            {
+                Size = new Size(520, 60),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(140, 20, 20)
+            };
 
             lblTitle = new Label
             {
-                Text = _studentId.HasValue ? "РЕДАКТИРОВАНИЕ СТУДЕНТА" : "ДОБАВЛЕНИЕ СТУДЕНТА",
-                Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                ForeColor = Color.FromArgb(52, 152, 219),
-                Location = new Point(20, 20),
-                AutoSize = true
+                Text = _studentId.HasValue ? "РЕДАКТИРОВАНИЕ ЧЛЕНА КОМИССИИ" : "ДОБАВЛЕНИЕ ЧЛЕНА КОМИССИИ",
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = false,
+                Size = new Size(520, 60),
+                Location = new Point(0, 0),
+                TextAlign = ContentAlignment.MiddleCenter
             };
+            panelHeader.Controls.Add(lblTitle);
 
-            Label lblFullName = new Label { Text = "ФИО:", Location = new Point(20, 70), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            txtFullName = new TextBox { Location = new Point(20, 95), Size = new Size(440, 30), Font = new Font("Segoe UI", 11) };
+            Label lblFullName = new Label { Text = "ФИО:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            txtFullName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblGroup = new Label { Text = "Группа:", Location = new Point(20, 135), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            cmbGroup = new ComboBox { Location = new Point(20, 160), Size = new Size(440, 30), Font = new Font("Segoe UI", 11), DropDownStyle = ComboBoxStyle.DropDownList };
+            Label lblGroup = new Label { Text = "Участок:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            cmbGroup = new ComboBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Arial", 11), DropDownStyle = ComboBoxStyle.DropDownList };
 
-            Label lblRole = new Label { Text = "Роль:", Location = new Point(20, 200), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            cmbRole = new ComboBox { Location = new Point(20, 225), Size = new Size(440, 30), Font = new Font("Segoe UI", 11), DropDownStyle = ComboBoxStyle.DropDownList };
+            Label lblRole = new Label { Text = "Должность:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            cmbRole = new ComboBox { Location = new Point(30, 235), Size = new Size(440, 28), Font = new Font("Arial", 11), DropDownStyle = ComboBoxStyle.DropDownList };
 
-            Label lblEmail = new Label { Text = "Email:", Location = new Point(20, 265), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            txtEmail = new TextBox { Location = new Point(20, 290), Size = new Size(440, 30), Font = new Font("Segoe UI", 11) };
+            Label lblEmail = new Label { Text = "Email:", Location = new Point(30, 275), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            txtEmail = new TextBox { Location = new Point(30, 300), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblPhone = new Label { Text = "Телефон:", Location = new Point(20, 330), AutoSize = true, Font = new Font("Segoe UI", 10) };
-            txtPhone = new TextBox { Location = new Point(20, 355), Size = new Size(440, 30), Font = new Font("Segoe UI", 11) };
+            Label lblPhone = new Label { Text = "Телефон:", Location = new Point(30, 340), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            txtPhone = new TextBox { Location = new Point(30, 365), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
 
             btnSave = new Button
             {
                 Text = "Сохранить",
-                Location = new Point(20, 400),
-                Size = new Size(200, 40),
-                BackColor = Color.FromArgb(46, 204, 113),
+                Location = new Point(30, 420),
+                Size = new Size(210, 42),
+                BackColor = Color.FromArgb(140, 20, 20),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnSave.FlatAppearance.BorderSize = 0;
@@ -80,18 +92,18 @@ namespace StudentActiveSystem.Forms
             btnCancel = new Button
             {
                 Text = "Отмена",
-                Location = new Point(260, 400),
-                Size = new Size(200, 40),
-                BackColor = Color.FromArgb(231, 76, 60),
+                Location = new Point(260, 420),
+                Size = new Size(210, 42),
+                BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
             btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
 
-            this.Controls.AddRange(new Control[] { lblTitle, lblFullName, txtFullName, lblGroup, cmbGroup, lblRole, cmbRole, lblEmail, txtEmail, lblPhone, txtPhone, btnSave, btnCancel });
+            this.Controls.AddRange(new Control[] { panelHeader, lblFullName, txtFullName, lblGroup, cmbGroup, lblRole, cmbRole, lblEmail, txtEmail, lblPhone, txtPhone, btnSave, btnCancel });
         }
 
         private void LoadComboBoxData()
@@ -102,7 +114,7 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
 
-                    // Загрузка групп
+                    // Загрузка участков
                     string groupQuery = "SELECT Id, Name FROM Groups ORDER BY Name";
                     using (var command = new SQLiteCommand(groupQuery, connection))
                     using (var reader = command.ExecuteReader())
@@ -117,7 +129,7 @@ namespace StudentActiveSystem.Forms
                         }
                     }
 
-                    // Загрузка ролей
+                    // Загрузка должностей
                     cmbRole.Items.Add(new ComboBoxItem { Value = null, Text = "Не назначена" });
                     string roleQuery = "SELECT Id, Name FROM Roles ORDER BY Name";
                     using (var command = new SQLiteCommand(roleQuery, connection))
@@ -193,7 +205,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки данных студента: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки данных члена комиссии: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -202,14 +214,14 @@ namespace StudentActiveSystem.Forms
         {
             if (string.IsNullOrWhiteSpace(txtFullName.Text))
             {
-                MessageBox.Show("Пожалуйста, введите ФИО студента!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите ФИО члена комиссии!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (cmbGroup.SelectedItem == null)
             {
-                MessageBox.Show("Пожалуйста, выберите группу!", "Ошибка",
+                MessageBox.Show("Пожалуйста, выберите участок!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

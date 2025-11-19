@@ -16,9 +16,11 @@ namespace StudentActiveSystem.Forms
         private Button btnRegister;
         private Button btnInstruction;
         private Label lblTitle;
+        private Label lblSubtitle;
         private Label lblUsername;
         private Label lblPassword;
         private Panel panelMain;
+        private Panel panelHeader;
 
         public LoginForm()
         {
@@ -28,79 +30,106 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "Вход в систему - Студенческий актив";
-            this.Size = new Size(600, 520);
+            this.Text = "Избирательная комиссия - Вход";
+            this.Size = new Size(520, 580);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(240, 244, 248);
+            this.BackColor = Color.White;
 
-            // Главная панель
-            panelMain = new Panel
+            // Верхняя панель с заголовком
+            panelHeader = new Panel
             {
-                Size = new Size(480, 420),
-                Location = new Point(60, 40),
-                BackColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle
+                Size = new Size(520, 110),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(140, 20, 20)
             };
 
             // Заголовок
             lblTitle = new Label
             {
-                Text = "СТУДЕНЧЕСКИЙ АКТИВ",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(41, 128, 185),
+                Text = "ИЗБИРАТЕЛЬНАЯ КОМИССИЯ",
+                Font = new Font("Arial", 18, FontStyle.Bold),
+                ForeColor = Color.White,
                 AutoSize = false,
-                Size = new Size(420, 50),
-                Location = new Point(30, 25),
+                Size = new Size(520, 45),
+                Location = new Point(0, 20),
                 TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            // Подзаголовок
+            lblSubtitle = new Label
+            {
+                Text = "Система учета членов комиссии",
+                Font = new Font("Arial", 10),
+                ForeColor = Color.FromArgb(255, 200, 200),
+                AutoSize = false,
+                Size = new Size(520, 25),
+                Location = new Point(0, 65),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            panelHeader.Controls.Add(lblTitle);
+            panelHeader.Controls.Add(lblSubtitle);
+
+            // Главная панель с полями
+            panelMain = new Panel
+            {
+                Size = new Size(400, 370),
+                Location = new Point(60, 140),
+                BackColor = Color.FromArgb(248, 248, 248),
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Метка имени пользователя
             lblUsername = new Label
             {
-                Text = "Имя пользователя:",
-                Location = new Point(40, 100),
+                Text = "Логин:",
+                Location = new Point(30, 35),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             // Поле имени пользователя
             txtUsername = new TextBox
             {
-                Location = new Point(40, 130),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12)
+                Location = new Point(30, 65),
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Метка пароля
             lblPassword = new Label
             {
                 Text = "Пароль:",
-                Location = new Point(40, 185),
+                Location = new Point(30, 115),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             // Поле пароля
             txtPassword = new TextBox
             {
-                Location = new Point(40, 215),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12),
-                PasswordChar = '●'
+                Location = new Point(30, 145),
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                PasswordChar = '*',
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Кнопка входа
             btnLogin = new Button
             {
-                Text = "Войти",
-                Location = new Point(40, 275),
-                Size = new Size(190, 45),
-                BackColor = Color.FromArgb(52, 152, 219),
+                Text = "ВОЙТИ",
+                Location = new Point(30, 205),
+                Size = new Size(340, 48),
+                BackColor = Color.FromArgb(140, 20, 20),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = new Font("Arial", 13, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnLogin.FlatAppearance.BorderSize = 0;
@@ -110,12 +139,12 @@ namespace StudentActiveSystem.Forms
             btnRegister = new Button
             {
                 Text = "Регистрация",
-                Location = new Point(250, 275),
-                Size = new Size(190, 45),
-                BackColor = Color.FromArgb(46, 204, 113),
+                Location = new Point(30, 265),
+                Size = new Size(165, 40),
+                BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                Font = new Font("Arial", 10),
                 Cursor = Cursors.Hand
             };
             btnRegister.FlatAppearance.BorderSize = 0;
@@ -124,20 +153,19 @@ namespace StudentActiveSystem.Forms
             // Кнопка инструкции
             btnInstruction = new Button
             {
-                Text = "📖 Инструкция пользователя",
-                Location = new Point(40, 345),
-                Size = new Size(400, 45),
-                BackColor = Color.FromArgb(155, 89, 182),
+                Text = "Справка",
+                Location = new Point(205, 265),
+                Size = new Size(165, 40),
+                BackColor = Color.FromArgb(60, 60, 60),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 10),
                 Cursor = Cursors.Hand
             };
             btnInstruction.FlatAppearance.BorderSize = 0;
             btnInstruction.Click += BtnInstruction_Click;
 
             // Добавление контролов на панель
-            panelMain.Controls.Add(lblTitle);
             panelMain.Controls.Add(lblUsername);
             panelMain.Controls.Add(txtUsername);
             panelMain.Controls.Add(lblPassword);
@@ -146,12 +174,12 @@ namespace StudentActiveSystem.Forms
             panelMain.Controls.Add(btnRegister);
             panelMain.Controls.Add(btnInstruction);
 
+            this.Controls.Add(panelHeader);
             this.Controls.Add(panelMain);
         }
 
         private void SetupUI()
         {
-            // Обработка Enter для входа
             this.AcceptButton = btnLogin;
         }
 
@@ -162,7 +190,7 @@ namespace StudentActiveSystem.Forms
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка",
+                MessageBox.Show("Заполните все поля!", "Внимание",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -189,10 +217,9 @@ namespace StudentActiveSystem.Forms
                                 string fullName = reader.GetString(1);
                                 bool isAdmin = reader.GetInt32(2) == 1;
 
-                                MessageBox.Show($"Добро пожаловать, {fullName}!", "Успешный вход",
+                                MessageBox.Show($"Добро пожаловать, {fullName}!", "Вход выполнен",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Открываем главную форму
                                 this.Hide();
                                 MainForm mainForm = new MainForm(userId, fullName, isAdmin);
                                 mainForm.FormClosed += (s, args) => this.Close();
@@ -200,7 +227,7 @@ namespace StudentActiveSystem.Forms
                             }
                             else
                             {
-                                MessageBox.Show("Неверное имя пользователя или пароль!", "Ошибка входа",
+                                MessageBox.Show("Неверный логин или пароль!", "Ошибка",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
@@ -209,7 +236,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при входе: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -224,7 +251,6 @@ namespace StudentActiveSystem.Forms
         {
             try
             {
-                // Путь к инструкции в корне проекта (на 4 уровня выше от bin/Release/net6.0-windows)
                 string instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                     "..", "..", "..", "..", "Инструкция_пользователя.docx");
                 instructionPath = Path.GetFullPath(instructionPath);
@@ -239,13 +265,13 @@ namespace StudentActiveSystem.Forms
                 }
                 else
                 {
-                    MessageBox.Show($"Файл инструкции не найден:\n{instructionPath}", "Ошибка",
+                    MessageBox.Show($"Файл справки не найден:\n{instructionPath}", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Не удалось открыть инструкцию: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

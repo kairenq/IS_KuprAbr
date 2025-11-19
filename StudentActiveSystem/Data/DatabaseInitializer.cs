@@ -10,7 +10,7 @@ namespace StudentActiveSystem.Data
     {
         public static void Initialize()
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "StudentActive.db");
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ElectionCommission.db");
             string directory = Path.GetDirectoryName(dbPath)!;
 
             if (!Directory.Exists(directory))
@@ -40,7 +40,7 @@ namespace StudentActiveSystem.Data
                         IsAdmin INTEGER NOT NULL DEFAULT 0
                     )";
 
-                // Создание таблицы групп
+                // Создание таблицы избирательных участков
                 string createGroupsTable = @"
                     CREATE TABLE IF NOT EXISTS Groups (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,7 +49,7 @@ namespace StudentActiveSystem.Data
                         Course INTEGER NOT NULL
                     )";
 
-                // Создание таблицы ролей
+                // Создание таблицы должностей
                 string createRolesTable = @"
                     CREATE TABLE IF NOT EXISTS Roles (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,7 +57,7 @@ namespace StudentActiveSystem.Data
                         Description TEXT NOT NULL
                     )";
 
-                // Создание таблицы студентов
+                // Создание таблицы членов комиссии
                 string createStudentsTable = @"
                     CREATE TABLE IF NOT EXISTS Students (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -107,15 +107,14 @@ namespace StudentActiveSystem.Data
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
 
-                // Добавление ролей по умолчанию
+                // Добавление должностей по умолчанию
                 var roles = new[]
                 {
-                    ("Староста", "Староста группы"),
-                    ("Заместитель старосты", "Заместитель старосты группы"),
-                    ("Физорг", "Физорг группы"),
-                    ("Культорг", "Культорг группы"),
-                    ("Профорг", "Профорг группы"),
-                    ("Студент", "Обычный студент")
+                    ("Председатель", "Председатель избирательной комиссии"),
+                    ("Зам. председателя", "Заместитель председателя комиссии"),
+                    ("Секретарь", "Секретарь избирательной комиссии"),
+                    ("Член комиссии", "Член избирательной комиссии"),
+                    ("Наблюдатель", "Наблюдатель на избирательном участке")
                 };
 
                 foreach (var role in roles)
@@ -129,17 +128,15 @@ namespace StudentActiveSystem.Data
                     command.Parameters.Clear();
                 }
 
-                // Добавление групп
+                // Добавление избирательных участков
                 var groups = new[]
                 {
-                    ("4ОБ-22", "Обеспечение безопасности", 4),
-                    ("3ОБ-23", "Обеспечение безопасности", 3),
-                    ("2ОБ-24", "Обеспечение безопасности", 2),
-                    ("1ОБ-25", "Обеспечение безопасности", 1),
-                    ("4ИС-22", "Информационные системы", 4),
-                    ("3ИС-23", "Информационные системы", 3),
-                    ("2ИС-24", "Информационные системы", 2),
-                    ("1ИС-25", "Информационные системы", 1)
+                    ("УИК №1001", "ул. Ленина, д. 15", 1001),
+                    ("УИК №1002", "ул. Мира, д. 28", 1002),
+                    ("УИК №1003", "пр. Победы, д. 42", 1003),
+                    ("УИК №1004", "ул. Советская, д. 7", 1004),
+                    ("УИК №1005", "ул. Гагарина, д. 33", 1005),
+                    ("УИК №1006", "пр. Строителей, д. 19", 1006)
                 };
 
                 foreach (var group in groups)

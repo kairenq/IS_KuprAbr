@@ -52,20 +52,20 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "Студенческий актив - Главное меню";
-            this.Size = new Size(1280, 800);
+            this.Text = "Избирательная комиссия - Управление";
+            this.Size = new Size(1200, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(240, 244, 248);
+            this.BackColor = Color.FromArgb(245, 245, 245);
 
             // Приветствие
             lblWelcome = new Label
             {
-                Text = $"Добро пожаловать, {_fullName}!",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(41, 128, 185),
+                Text = $"Пользователь: {_fullName}",
+                Font = new Font("Arial", 14, FontStyle.Bold),
+                ForeColor = Color.FromArgb(140, 20, 20),
                 AutoSize = false,
-                Size = new Size(1220, 50),
-                Location = new Point(30, 15),
+                Size = new Size(1140, 45),
+                Location = new Point(30, 12),
                 TextAlign = ContentAlignment.MiddleLeft
             };
             this.Controls.Add(lblWelcome);
@@ -73,20 +73,20 @@ namespace StudentActiveSystem.Forms
             // Вкладки
             tabControl = new TabControl
             {
-                Location = new Point(30, 80),
-                Size = new Size(1220, 670)
+                Location = new Point(30, 65),
+                Size = new Size(1140, 635)
             };
 
-            // Вкладка "Студенты"
-            tabStudents = new TabPage("Студенты");
+            // Вкладка "Члены комиссии"
+            tabStudents = new TabPage("Члены комиссии");
             InitializeStudentsTab();
 
-            // Вкладка "Группы"
-            tabGroups = new TabPage("Группы");
+            // Вкладка "Участки"
+            tabGroups = new TabPage("Участки");
             InitializeGroupsTab();
 
-            // Вкладка "Роли"
-            tabRoles = new TabPage("Роли");
+            // Вкладка "Должности"
+            tabRoles = new TabPage("Должности");
             InitializeRolesTab();
 
             tabControl.TabPages.Add(tabStudents);
@@ -98,11 +98,11 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeStudentsTab()
         {
-            // DataGridView для студентов
+            // DataGridView для членов комиссии
             dgvStudents = new DataGridView
             {
-                Location = new Point(15, 60),
-                Size = new Size(1180, 520),
+                Location = new Point(10, 15),
+                Size = new Size(1110, 500),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -112,16 +112,16 @@ namespace StudentActiveSystem.Forms
             };
 
             // Кнопки управления
-            btnAddStudent = CreateButton("Добавить студента", 15, 595, Color.FromArgb(46, 204, 113));
+            btnAddStudent = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
             btnAddStudent.Click += BtnAddStudent_Click;
 
-            btnEditStudent = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
+            btnEditStudent = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
             btnEditStudent.Click += BtnEditStudent_Click;
 
-            btnDeleteStudent = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
+            btnDeleteStudent = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
             btnDeleteStudent.Click += BtnDeleteStudent_Click;
 
-            btnRefreshStudents = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
+            btnRefreshStudents = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
             btnRefreshStudents.Click += (s, e) => LoadStudents();
 
             tabStudents.Controls.Add(dgvStudents);
@@ -135,8 +135,8 @@ namespace StudentActiveSystem.Forms
         {
             dgvGroups = new DataGridView
             {
-                Location = new Point(15, 60),
-                Size = new Size(1180, 520),
+                Location = new Point(10, 15),
+                Size = new Size(1110, 500),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -145,16 +145,16 @@ namespace StudentActiveSystem.Forms
                 BackgroundColor = Color.White
             };
 
-            btnAddGroup = CreateButton("Добавить группу", 15, 595, Color.FromArgb(46, 204, 113));
+            btnAddGroup = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
             btnAddGroup.Click += BtnAddGroup_Click;
 
-            btnEditGroup = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
+            btnEditGroup = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
             btnEditGroup.Click += BtnEditGroup_Click;
 
-            btnDeleteGroup = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
+            btnDeleteGroup = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
             btnDeleteGroup.Click += BtnDeleteGroup_Click;
 
-            btnRefreshGroups = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
+            btnRefreshGroups = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
             btnRefreshGroups.Click += (s, e) => LoadGroups();
 
             tabGroups.Controls.Add(dgvGroups);
@@ -168,8 +168,8 @@ namespace StudentActiveSystem.Forms
         {
             dgvRoles = new DataGridView
             {
-                Location = new Point(15, 60),
-                Size = new Size(1180, 520),
+                Location = new Point(10, 15),
+                Size = new Size(1110, 500),
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 MultiSelect = false,
@@ -178,16 +178,16 @@ namespace StudentActiveSystem.Forms
                 BackgroundColor = Color.White
             };
 
-            btnAddRole = CreateButton("Добавить роль", 15, 595, Color.FromArgb(46, 204, 113));
+            btnAddRole = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
             btnAddRole.Click += BtnAddRole_Click;
 
-            btnEditRole = CreateButton("Редактировать", 245, 595, Color.FromArgb(52, 152, 219));
+            btnEditRole = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
             btnEditRole.Click += BtnEditRole_Click;
 
-            btnDeleteRole = CreateButton("Удалить", 475, 595, Color.FromArgb(231, 76, 60));
+            btnDeleteRole = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
             btnDeleteRole.Click += BtnDeleteRole_Click;
 
-            btnRefreshRoles = CreateButton("Обновить", 705, 595, Color.FromArgb(155, 89, 182));
+            btnRefreshRoles = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
             btnRefreshRoles.Click += (s, e) => LoadRoles();
 
             tabRoles.Controls.Add(dgvRoles);
@@ -203,11 +203,11 @@ namespace StudentActiveSystem.Forms
             {
                 Text = text,
                 Location = new Point(x, y),
-                Size = new Size(220, 45),
+                Size = new Size(210, 42),
                 BackColor = color,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             button.FlatAppearance.BorderSize = 0;
@@ -229,8 +229,8 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
                     string query = @"
-                        SELECT s.Id, s.FullName as 'ФИО', g.Name as 'Группа',
-                               IFNULL(r.Name, 'Не назначена') as 'Роль',
+                        SELECT s.Id, s.FullName as 'ФИО', g.Name as 'Участок',
+                               IFNULL(r.Name, 'Не назначена') as 'Должность',
                                s.Email as 'Email', s.Phone as 'Телефон'
                         FROM Students s
                         LEFT JOIN Groups g ON s.GroupId = g.Id
@@ -264,7 +264,7 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
                     string query = @"
-                        SELECT Id, Name as 'Название', Faculty as 'Факультет', Course as 'Курс'
+                        SELECT Id, Name as 'Название', Faculty as 'Адрес', Course as 'Номер'
                         FROM Groups
                         ORDER BY Course, Name";
 
@@ -347,7 +347,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvStudents.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите удалить этого студента?",
+                var result = MessageBox.Show("Удалить выбранного члена комиссии?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -367,7 +367,7 @@ namespace StudentActiveSystem.Forms
                             }
                         }
 
-                        MessageBox.Show("Студент успешно удален!", "Успех",
+                        MessageBox.Show("Запись удалена!", "Успех",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadStudents();
                     }
@@ -416,7 +416,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvGroups.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите удалить эту группу?",
+                var result = MessageBox.Show("Удалить выбранный участок?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -436,7 +436,7 @@ namespace StudentActiveSystem.Forms
                             }
                         }
 
-                        MessageBox.Show("Группа успешно удалена!", "Успех",
+                        MessageBox.Show("Участок удален!", "Успех",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadGroups();
                     }
@@ -485,7 +485,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvRoles.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите удалить эту роль?",
+                var result = MessageBox.Show("Удалить выбранную должность?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)

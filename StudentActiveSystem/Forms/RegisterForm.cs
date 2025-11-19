@@ -28,19 +28,19 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "Регистрация - Студенческий актив";
-            this.Size = new Size(600, 600);
+            this.Text = "Регистрация - Избирательная комиссия";
+            this.Size = new Size(520, 560);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.FromArgb(240, 244, 248);
+            this.BackColor = Color.White;
 
             // Главная панель
             panelMain = new Panel
             {
-                Size = new Size(480, 520),
-                Location = new Point(60, 40),
-                BackColor = Color.White,
+                Size = new Size(420, 480),
+                Location = new Point(50, 35),
+                BackColor = Color.FromArgb(248, 248, 248),
                 BorderStyle = BorderStyle.FixedSingle
             };
 
@@ -48,11 +48,11 @@ namespace StudentActiveSystem.Forms
             lblTitle = new Label
             {
                 Text = "РЕГИСТРАЦИЯ",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(46, 204, 113),
+                Font = new Font("Arial", 16, FontStyle.Bold),
+                ForeColor = Color.FromArgb(140, 20, 20),
                 AutoSize = false,
-                Size = new Size(420, 50),
-                Location = new Point(30, 25),
+                Size = new Size(360, 45),
+                Location = new Point(30, 20),
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
@@ -62,76 +62,84 @@ namespace StudentActiveSystem.Forms
                 Text = "ФИО:",
                 Location = new Point(40, 100),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             txtFullName = new TextBox
             {
                 Location = new Point(40, 130),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12)
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Имя пользователя
             lblUsername = new Label
             {
-                Text = "Имя пользователя:",
-                Location = new Point(40, 185),
+                Text = "Логин:",
+                Location = new Point(40, 180),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             txtUsername = new TextBox
             {
-                Location = new Point(40, 215),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12)
+                Location = new Point(40, 210),
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Пароль
             lblPassword = new Label
             {
                 Text = "Пароль:",
-                Location = new Point(40, 270),
+                Location = new Point(40, 260),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             txtPassword = new TextBox
             {
-                Location = new Point(40, 300),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12),
-                PasswordChar = '●'
+                Location = new Point(40, 290),
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                PasswordChar = '*',
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Подтверждение пароля
             lblConfirmPassword = new Label
             {
                 Text = "Подтвердите пароль:",
-                Location = new Point(40, 355),
+                Location = new Point(40, 340),
                 AutoSize = true,
-                Font = new Font("Segoe UI", 11)
+                Font = new Font("Arial", 11),
+                ForeColor = Color.FromArgb(50, 50, 50)
             };
 
             txtConfirmPassword = new TextBox
             {
-                Location = new Point(40, 385),
-                Size = new Size(400, 35),
-                Font = new Font("Segoe UI", 12),
-                PasswordChar = '●'
+                Location = new Point(40, 370),
+                Size = new Size(340, 30),
+                Font = new Font("Arial", 12),
+                PasswordChar = '*',
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             // Кнопка регистрации
             btnRegister = new Button
             {
                 Text = "Зарегистрироваться",
-                Location = new Point(40, 450),
-                Size = new Size(190, 45),
-                BackColor = Color.FromArgb(46, 204, 113),
+                Location = new Point(30, 410),
+                Size = new Size(175, 42),
+                BackColor = Color.FromArgb(140, 20, 20),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnRegister.FlatAppearance.BorderSize = 0;
@@ -141,12 +149,12 @@ namespace StudentActiveSystem.Forms
             btnCancel = new Button
             {
                 Text = "Отмена",
-                Location = new Point(250, 450),
-                Size = new Size(190, 45),
-                BackColor = Color.FromArgb(231, 76, 60),
+                Location = new Point(215, 410),
+                Size = new Size(175, 42),
+                BackColor = Color.FromArgb(80, 80, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Font = new Font("Arial", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;

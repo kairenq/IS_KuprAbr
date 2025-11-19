@@ -14,7 +14,7 @@ namespace StudentActiveSystem.Data
             {
                 if (string.IsNullOrEmpty(_connectionString))
                 {
-                    string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "StudentActive.db");
+                    string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "ElectionCommission.db");
                     _connectionString = $"Data Source={dbPath};Version=3;";
                 }
                 return _connectionString;
