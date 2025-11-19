@@ -33,25 +33,25 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = _studentId.HasValue ? "Редактирование члена комиссии" : "Добавление члена комиссии";
+            this.Text = _studentId.HasValue ? "Редактирование абитуриента" : "Добавление абитуриента";
             this.Size = new Size(520, 520);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(245, 245, 250);
 
             // Верхняя панель
             panelHeader = new Panel
             {
                 Size = new Size(520, 60),
                 Location = new Point(0, 0),
-                BackColor = Color.FromArgb(140, 20, 20)
+                BackColor = Color.FromArgb(25, 55, 109)
             };
 
             lblTitle = new Label
             {
-                Text = _studentId.HasValue ? "РЕДАКТИРОВАНИЕ ЧЛЕНА КОМИССИИ" : "ДОБАВЛЕНИЕ ЧЛЕНА КОМИССИИ",
-                Font = new Font("Arial", 12, FontStyle.Bold),
+                Text = _studentId.HasValue ? "РЕДАКТИРОВАНИЕ АБИТУРИЕНТА" : "ДОБАВЛЕНИЕ АБИТУРИЕНТА",
+                Font = new Font("Tahoma", 12, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(520, 60),
@@ -60,30 +60,30 @@ namespace StudentActiveSystem.Forms
             };
             panelHeader.Controls.Add(lblTitle);
 
-            Label lblFullName = new Label { Text = "ФИО:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            txtFullName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
+            Label lblFullName = new Label { Text = "ФИО:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            txtFullName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Tahoma", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblGroup = new Label { Text = "Участок:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            cmbGroup = new ComboBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Arial", 11), DropDownStyle = ComboBoxStyle.DropDownList };
+            Label lblGroup = new Label { Text = "Специальность:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            cmbGroup = new ComboBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Tahoma", 11), DropDownStyle = ComboBoxStyle.DropDownList };
 
-            Label lblRole = new Label { Text = "Должность:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            cmbRole = new ComboBox { Location = new Point(30, 235), Size = new Size(440, 28), Font = new Font("Arial", 11), DropDownStyle = ComboBoxStyle.DropDownList };
+            Label lblRole = new Label { Text = "Статус:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            cmbRole = new ComboBox { Location = new Point(30, 235), Size = new Size(440, 28), Font = new Font("Tahoma", 11), DropDownStyle = ComboBoxStyle.DropDownList };
 
-            Label lblEmail = new Label { Text = "Email:", Location = new Point(30, 275), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            txtEmail = new TextBox { Location = new Point(30, 300), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
+            Label lblEmail = new Label { Text = "Email:", Location = new Point(30, 275), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            txtEmail = new TextBox { Location = new Point(30, 300), Size = new Size(440, 28), Font = new Font("Tahoma", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblPhone = new Label { Text = "Телефон:", Location = new Point(30, 340), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            txtPhone = new TextBox { Location = new Point(30, 365), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
+            Label lblPhone = new Label { Text = "Телефон:", Location = new Point(30, 340), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            txtPhone = new TextBox { Location = new Point(30, 365), Size = new Size(440, 28), Font = new Font("Tahoma", 11), BorderStyle = BorderStyle.FixedSingle };
 
             btnSave = new Button
             {
                 Text = "Сохранить",
                 Location = new Point(30, 420),
                 Size = new Size(210, 42),
-                BackColor = Color.FromArgb(140, 20, 20),
+                BackColor = Color.FromArgb(25, 55, 109),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 11, FontStyle.Bold),
+                Font = new Font("Tahoma", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnSave.FlatAppearance.BorderSize = 0;
@@ -94,10 +94,10 @@ namespace StudentActiveSystem.Forms
                 Text = "Отмена",
                 Location = new Point(260, 420),
                 Size = new Size(210, 42),
-                BackColor = Color.FromArgb(80, 80, 80),
+                BackColor = Color.FromArgb(120, 120, 120),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 11, FontStyle.Bold),
+                Font = new Font("Tahoma", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
@@ -114,8 +114,8 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
 
-                    // Загрузка участков
-                    string groupQuery = "SELECT Id, Name FROM Groups ORDER BY Name";
+                    // Загрузка специальностей
+                    string groupQuery = "SELECT Id, Name || ' - ' || Faculty as DisplayName FROM Groups ORDER BY Course";
                     using (var command = new SQLiteCommand(groupQuery, connection))
                     using (var reader = command.ExecuteReader())
                     {
@@ -129,8 +129,8 @@ namespace StudentActiveSystem.Forms
                         }
                     }
 
-                    // Загрузка должностей
-                    cmbRole.Items.Add(new ComboBoxItem { Value = null, Text = "Не назначена" });
+                    // Загрузка статусов
+                    cmbRole.Items.Add(new ComboBoxItem { Value = null, Text = "Не указан" });
                     string roleQuery = "SELECT Id, Name FROM Roles ORDER BY Name";
                     using (var command = new SQLiteCommand(roleQuery, connection))
                     using (var reader = command.ExecuteReader())
@@ -205,7 +205,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки данных члена комиссии: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки данных абитуриента: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -214,14 +214,14 @@ namespace StudentActiveSystem.Forms
         {
             if (string.IsNullOrWhiteSpace(txtFullName.Text))
             {
-                MessageBox.Show("Пожалуйста, введите ФИО члена комиссии!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите ФИО абитуриента!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (cmbGroup.SelectedItem == null)
             {
-                MessageBox.Show("Пожалуйста, выберите участок!", "Ошибка",
+                MessageBox.Show("Пожалуйста, выберите специальность!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

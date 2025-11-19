@@ -39,6 +39,7 @@ namespace StudentActiveSystem.Forms
         private Button btnRefreshRoles;
 
         private Label lblWelcome;
+        private Panel panelHeader;
 
         public MainForm(int userId, string fullName, bool isAdmin)
         {
@@ -52,41 +53,63 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "Избирательная комиссия - Управление";
+            this.Text = "БППК - Приемная комиссия";
             this.Size = new Size(1200, 750);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(245, 245, 245);
+            this.BackColor = Color.FromArgb(240, 242, 245);
+
+            // Верхняя панель
+            panelHeader = new Panel
+            {
+                Size = new Size(1200, 60),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(25, 55, 109)
+            };
+
+            Label lblAppTitle = new Label
+            {
+                Text = "БППК - Приемная комиссия",
+                Font = new Font("Tahoma", 16, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(20, 15),
+                AutoSize = true
+            };
+            panelHeader.Controls.Add(lblAppTitle);
 
             // Приветствие
             lblWelcome = new Label
             {
                 Text = $"Пользователь: {_fullName}",
-                Font = new Font("Arial", 14, FontStyle.Bold),
-                ForeColor = Color.FromArgb(140, 20, 20),
-                AutoSize = false,
-                Size = new Size(1140, 45),
-                Location = new Point(30, 12),
-                TextAlign = ContentAlignment.MiddleLeft
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.White,
+                Location = new Point(900, 20),
+                AutoSize = true
             };
-            this.Controls.Add(lblWelcome);
+            panelHeader.Controls.Add(lblWelcome);
+
+            this.Controls.Add(panelHeader);
 
             // Вкладки
             tabControl = new TabControl
             {
-                Location = new Point(30, 65),
-                Size = new Size(1140, 635)
+                Location = new Point(20, 75),
+                Size = new Size(1145, 620),
+                Font = new Font("Tahoma", 10)
             };
 
-            // Вкладка "Члены комиссии"
-            tabStudents = new TabPage("Члены комиссии");
+            // Вкладка "Абитуриенты"
+            tabStudents = new TabPage("Абитуриенты");
+            tabStudents.BackColor = Color.White;
             InitializeStudentsTab();
 
-            // Вкладка "Участки"
-            tabGroups = new TabPage("Участки");
+            // Вкладка "Специальности"
+            tabGroups = new TabPage("Специальности");
+            tabGroups.BackColor = Color.White;
             InitializeGroupsTab();
 
-            // Вкладка "Должности"
-            tabRoles = new TabPage("Должности");
+            // Вкладка "Статусы"
+            tabRoles = new TabPage("Статусы");
+            tabRoles.BackColor = Color.White;
             InitializeRolesTab();
 
             tabControl.TabPages.Add(tabStudents);
@@ -98,7 +121,7 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeStudentsTab()
         {
-            // DataGridView для членов комиссии
+            // DataGridView для абитуриентов
             dgvStudents = new DataGridView
             {
                 Location = new Point(10, 15),
@@ -108,17 +131,18 @@ namespace StudentActiveSystem.Forms
                 MultiSelect = false,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
-                BackgroundColor = Color.White
+                BackgroundColor = Color.White,
+                Font = new Font("Tahoma", 9)
             };
 
             // Кнопки управления
-            btnAddStudent = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
+            btnAddStudent = CreateButton("Добавить", 10, 530, Color.FromArgb(25, 55, 109));
             btnAddStudent.Click += BtnAddStudent_Click;
 
-            btnEditStudent = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
+            btnEditStudent = CreateButton("Изменить", 230, 530, Color.FromArgb(70, 100, 150));
             btnEditStudent.Click += BtnEditStudent_Click;
 
-            btnDeleteStudent = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
+            btnDeleteStudent = CreateButton("Удалить", 450, 530, Color.FromArgb(150, 60, 60));
             btnDeleteStudent.Click += BtnDeleteStudent_Click;
 
             btnRefreshStudents = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
@@ -142,16 +166,17 @@ namespace StudentActiveSystem.Forms
                 MultiSelect = false,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
-                BackgroundColor = Color.White
+                BackgroundColor = Color.White,
+                Font = new Font("Tahoma", 9)
             };
 
-            btnAddGroup = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
+            btnAddGroup = CreateButton("Добавить", 10, 530, Color.FromArgb(25, 55, 109));
             btnAddGroup.Click += BtnAddGroup_Click;
 
-            btnEditGroup = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
+            btnEditGroup = CreateButton("Изменить", 230, 530, Color.FromArgb(70, 100, 150));
             btnEditGroup.Click += BtnEditGroup_Click;
 
-            btnDeleteGroup = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
+            btnDeleteGroup = CreateButton("Удалить", 450, 530, Color.FromArgb(150, 60, 60));
             btnDeleteGroup.Click += BtnDeleteGroup_Click;
 
             btnRefreshGroups = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
@@ -175,16 +200,17 @@ namespace StudentActiveSystem.Forms
                 MultiSelect = false,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
-                BackgroundColor = Color.White
+                BackgroundColor = Color.White,
+                Font = new Font("Tahoma", 9)
             };
 
-            btnAddRole = CreateButton("Добавить", 10, 530, Color.FromArgb(140, 20, 20));
+            btnAddRole = CreateButton("Добавить", 10, 530, Color.FromArgb(25, 55, 109));
             btnAddRole.Click += BtnAddRole_Click;
 
-            btnEditRole = CreateButton("Изменить", 230, 530, Color.FromArgb(80, 80, 80));
+            btnEditRole = CreateButton("Изменить", 230, 530, Color.FromArgb(70, 100, 150));
             btnEditRole.Click += BtnEditRole_Click;
 
-            btnDeleteRole = CreateButton("Удалить", 450, 530, Color.FromArgb(60, 60, 60));
+            btnDeleteRole = CreateButton("Удалить", 450, 530, Color.FromArgb(150, 60, 60));
             btnDeleteRole.Click += BtnDeleteRole_Click;
 
             btnRefreshRoles = CreateButton("Обновить", 670, 530, Color.FromArgb(100, 100, 100));
@@ -207,7 +233,7 @@ namespace StudentActiveSystem.Forms
                 BackColor = color,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 10, FontStyle.Bold),
+                Font = new Font("Tahoma", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             button.FlatAppearance.BorderSize = 0;
@@ -229,8 +255,9 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
                     string query = @"
-                        SELECT s.Id, s.FullName as 'ФИО', g.Name as 'Участок',
-                               IFNULL(r.Name, 'Не назначена') as 'Должность',
+                        SELECT s.Id, s.FullName as 'ФИО',
+                               g.Name || ' - ' || g.Faculty as 'Специальность',
+                               IFNULL(r.Name, 'Не указан') as 'Статус',
                                s.Email as 'Email', s.Phone as 'Телефон'
                         FROM Students s
                         LEFT JOIN Groups g ON s.GroupId = g.Id
@@ -251,7 +278,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки студентов: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки абитуриентов: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -264,7 +291,7 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
                     string query = @"
-                        SELECT Id, Name as 'Название', Faculty as 'Адрес', Course as 'Номер'
+                        SELECT Id, Name as 'Код', Faculty as 'Название специальности', Course as 'Порядок'
                         FROM Groups
                         ORDER BY Course, Name";
 
@@ -281,7 +308,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки групп: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки специальностей: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -294,7 +321,7 @@ namespace StudentActiveSystem.Forms
                 {
                     connection.Open();
                     string query = @"
-                        SELECT Id, Name as 'Название', Description as 'Описание'
+                        SELECT Id, Name as 'Статус', Description as 'Описание'
                         FROM Roles
                         ORDER BY Name";
 
@@ -311,7 +338,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки ролей: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки статусов: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -338,7 +365,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите студента для редактирования!", "Предупреждение",
+                MessageBox.Show("Выберите абитуриента для редактирования!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -347,7 +374,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvStudents.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Удалить выбранного члена комиссии?",
+                var result = MessageBox.Show("Удалить выбранного абитуриента?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -380,7 +407,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите студента для удаления!", "Предупреждение",
+                MessageBox.Show("Выберите абитуриента для удаления!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -407,7 +434,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите группу для редактирования!", "Предупреждение",
+                MessageBox.Show("Выберите специальность для редактирования!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -416,7 +443,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvGroups.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Удалить выбранный участок?",
+                var result = MessageBox.Show("Удалить выбранную специальность?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -436,7 +463,7 @@ namespace StudentActiveSystem.Forms
                             }
                         }
 
-                        MessageBox.Show("Участок удален!", "Успех",
+                        MessageBox.Show("Специальность удалена!", "Успех",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadGroups();
                     }
@@ -449,7 +476,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите группу для удаления!", "Предупреждение",
+                MessageBox.Show("Выберите специальность для удаления!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -476,7 +503,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите роль для редактирования!", "Предупреждение",
+                MessageBox.Show("Выберите статус для редактирования!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -485,7 +512,7 @@ namespace StudentActiveSystem.Forms
         {
             if (dgvRoles.SelectedRows.Count > 0)
             {
-                var result = MessageBox.Show("Удалить выбранную должность?",
+                var result = MessageBox.Show("Удалить выбранный статус?",
                     "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
@@ -505,7 +532,7 @@ namespace StudentActiveSystem.Forms
                             }
                         }
 
-                        MessageBox.Show("Роль успешно удалена!", "Успех",
+                        MessageBox.Show("Статус успешно удален!", "Успех",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadRoles();
                     }
@@ -518,7 +545,7 @@ namespace StudentActiveSystem.Forms
             }
             else
             {
-                MessageBox.Show("Выберите роль для удаления!", "Предупреждение",
+                MessageBox.Show("Выберите статус для удаления!", "Предупреждение",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

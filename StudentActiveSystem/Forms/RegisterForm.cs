@@ -1,25 +1,25 @@
 using System;
-using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Data.SQLite;
 using StudentActiveSystem.Data;
 
 namespace StudentActiveSystem.Forms
 {
     public class RegisterForm : Form
     {
+        private TextBox txtFullName;
         private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtConfirmPassword;
-        private TextBox txtFullName;
         private Button btnRegister;
         private Button btnCancel;
         private Label lblTitle;
+        private Label lblFullName;
         private Label lblUsername;
         private Label lblPassword;
         private Label lblConfirmPassword;
-        private Label lblFullName;
-        private Panel panelMain;
+        private Panel panelLeft;
 
         public RegisterForm()
         {
@@ -28,67 +28,74 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = "Регистрация - Избирательная комиссия";
-            this.Size = new Size(520, 560);
+            this.Text = "Регистрация - БППК";
+            this.Size = new Size(600, 480);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(245, 245, 250);
 
-            // Главная панель
-            panelMain = new Panel
+            // Левая декоративная панель
+            panelLeft = new Panel
             {
-                Size = new Size(420, 480),
-                Location = new Point(50, 35),
-                BackColor = Color.FromArgb(248, 248, 248),
-                BorderStyle = BorderStyle.FixedSingle
+                Size = new Size(180, 480),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(25, 55, 109)
             };
 
-            // Заголовок
+            Label lblLogo = new Label
+            {
+                Text = "БППК",
+                Font = new Font("Tahoma", 20, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(20, 180),
+                AutoSize = true
+            };
+            panelLeft.Controls.Add(lblLogo);
+
+            // Заголовок формы
             lblTitle = new Label
             {
-                Text = "РЕГИСТРАЦИЯ",
-                Font = new Font("Arial", 16, FontStyle.Bold),
-                ForeColor = Color.FromArgb(140, 20, 20),
-                AutoSize = false,
-                Size = new Size(360, 45),
-                Location = new Point(30, 20),
-                TextAlign = ContentAlignment.MiddleCenter
+                Text = "Создание аккаунта",
+                Font = new Font("Tahoma", 14, FontStyle.Bold),
+                ForeColor = Color.FromArgb(25, 55, 109),
+                Location = new Point(210, 30),
+                AutoSize = true
             };
 
             // ФИО
             lblFullName = new Label
             {
                 Text = "ФИО:",
-                Location = new Point(40, 100),
+                Location = new Point(210, 80),
                 AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
             };
 
             txtFullName = new TextBox
             {
-                Location = new Point(40, 130),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
+                Location = new Point(210, 105),
+                Size = new Size(350, 28),
+                Font = new Font("Tahoma", 11),
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // Имя пользователя
+            // Логин
             lblUsername = new Label
             {
-                Text = "Логин:",
-                Location = new Point(40, 180),
+                Text = "Имя пользователя:",
+                Location = new Point(210, 150),
                 AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
             };
 
             txtUsername = new TextBox
             {
-                Location = new Point(40, 210),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
+                Location = new Point(210, 175),
+                Size = new Size(350, 28),
+                Font = new Font("Tahoma", 11),
                 BorderStyle = BorderStyle.FixedSingle
             };
 
@@ -96,17 +103,17 @@ namespace StudentActiveSystem.Forms
             lblPassword = new Label
             {
                 Text = "Пароль:",
-                Location = new Point(40, 260),
+                Location = new Point(210, 220),
                 AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
             };
 
             txtPassword = new TextBox
             {
-                Location = new Point(40, 290),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
+                Location = new Point(210, 245),
+                Size = new Size(350, 28),
+                Font = new Font("Tahoma", 11),
                 PasswordChar = '*',
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -115,91 +122,72 @@ namespace StudentActiveSystem.Forms
             lblConfirmPassword = new Label
             {
                 Text = "Подтвердите пароль:",
-                Location = new Point(40, 340),
+                Location = new Point(210, 290),
                 AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
             };
 
             txtConfirmPassword = new TextBox
             {
-                Location = new Point(40, 370),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
+                Location = new Point(210, 315),
+                Size = new Size(350, 28),
+                Font = new Font("Tahoma", 11),
                 PasswordChar = '*',
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // Кнопка регистрации
+            // Кнопки
             btnRegister = new Button
             {
                 Text = "Зарегистрироваться",
-                Location = new Point(30, 410),
-                Size = new Size(175, 42),
-                BackColor = Color.FromArgb(140, 20, 20),
+                Location = new Point(210, 375),
+                Size = new Size(170, 42),
+                BackColor = Color.FromArgb(25, 55, 109),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 10, FontStyle.Bold),
+                Font = new Font("Tahoma", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnRegister.FlatAppearance.BorderSize = 0;
             btnRegister.Click += BtnRegister_Click;
 
-            // Кнопка отмены
             btnCancel = new Button
             {
                 Text = "Отмена",
-                Location = new Point(215, 410),
-                Size = new Size(175, 42),
-                BackColor = Color.FromArgb(80, 80, 80),
+                Location = new Point(390, 375),
+                Size = new Size(170, 42),
+                BackColor = Color.FromArgb(120, 120, 120),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 10, FontStyle.Bold),
+                Font = new Font("Tahoma", 10, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
-            btnCancel.Click += (s, e) => this.Close();
+            btnCancel.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
 
-            // Добавление контролов на панель
-            panelMain.Controls.Add(lblTitle);
-            panelMain.Controls.Add(lblFullName);
-            panelMain.Controls.Add(txtFullName);
-            panelMain.Controls.Add(lblUsername);
-            panelMain.Controls.Add(txtUsername);
-            panelMain.Controls.Add(lblPassword);
-            panelMain.Controls.Add(txtPassword);
-            panelMain.Controls.Add(lblConfirmPassword);
-            panelMain.Controls.Add(txtConfirmPassword);
-            panelMain.Controls.Add(btnRegister);
-            panelMain.Controls.Add(btnCancel);
-
-            this.Controls.Add(panelMain);
+            this.Controls.AddRange(new Control[] { panelLeft, lblTitle, lblFullName, txtFullName, lblUsername, txtUsername, lblPassword, txtPassword, lblConfirmPassword, txtConfirmPassword, btnRegister, btnCancel });
         }
 
         private void BtnRegister_Click(object? sender, EventArgs e)
         {
-            string fullName = txtFullName.Text.Trim();
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
-            string confirmPassword = txtConfirmPassword.Text;
-
-            // Валидация
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(username) ||
-                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+            if (string.IsNullOrWhiteSpace(txtFullName.Text) ||
+                string.IsNullOrWhiteSpace(txtUsername.Text) ||
+                string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (password != confirmPassword)
+            if (txtPassword.Text != txtConfirmPassword.Text)
             {
                 MessageBox.Show("Пароли не совпадают!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (password.Length < 4)
+            if (txtPassword.Text.Length < 4)
             {
                 MessageBox.Show("Пароль должен содержать минимум 4 символа!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -208,8 +196,6 @@ namespace StudentActiveSystem.Forms
 
             try
             {
-                string passwordHash = DatabaseInitializer.HashPassword(password);
-
                 using (var connection = DatabaseContext.GetConnection())
                 {
                     connection.Open();
@@ -218,9 +204,8 @@ namespace StudentActiveSystem.Forms
                     string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
                     using (var checkCommand = new SQLiteCommand(checkQuery, connection))
                     {
-                        checkCommand.Parameters.AddWithValue("@Username", username);
+                        checkCommand.Parameters.AddWithValue("@Username", txtUsername.Text);
                         long count = (long)checkCommand.ExecuteScalar();
-
                         if (count > 0)
                         {
                             MessageBox.Show("Пользователь с таким именем уже существует!", "Ошибка",
@@ -233,22 +218,18 @@ namespace StudentActiveSystem.Forms
                     string insertQuery = @"
                         INSERT INTO Users (Username, PasswordHash, FullName, CreatedAt, IsAdmin)
                         VALUES (@Username, @PasswordHash, @FullName, @CreatedAt, 0)";
-
-                    using (var command = new SQLiteCommand(insertQuery, connection))
+                    using (var insertCommand = new SQLiteCommand(insertQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@PasswordHash", passwordHash);
-                        command.Parameters.AddWithValue("@FullName", fullName);
-                        command.Parameters.AddWithValue("@CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-
-                        command.ExecuteNonQuery();
-
-                        MessageBox.Show("Регистрация прошла успешно!", "Успех",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        this.Close();
+                        insertCommand.Parameters.AddWithValue("@Username", txtUsername.Text);
+                        insertCommand.Parameters.AddWithValue("@PasswordHash", DatabaseInitializer.HashPassword(txtPassword.Text));
+                        insertCommand.Parameters.AddWithValue("@FullName", txtFullName.Text);
+                        insertCommand.Parameters.AddWithValue("@CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        insertCommand.ExecuteNonQuery();
                     }
                 }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             catch (Exception ex)
             {

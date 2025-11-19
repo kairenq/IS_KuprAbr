@@ -1,9 +1,9 @@
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
 using StudentActiveSystem.Data;
 
 namespace StudentActiveSystem.Forms
@@ -19,215 +19,226 @@ namespace StudentActiveSystem.Forms
         private Label lblSubtitle;
         private Label lblUsername;
         private Label lblPassword;
-        private Panel panelMain;
-        private Panel panelHeader;
+        private Panel panelLeft;
+        private Panel panelRight;
+
+        public string LoggedInUser { get; private set; } = string.Empty;
+        public string LoggedInFullName { get; private set; } = string.Empty;
+        public bool IsAdmin { get; private set; }
 
         public LoginForm()
         {
             InitializeComponent();
-            SetupUI();
         }
 
         private void InitializeComponent()
         {
-            this.Text = "Избирательная комиссия - Вход";
-            this.Size = new Size(520, 580);
+            this.Text = "БППК - Приемная комиссия";
+            this.Size = new Size(700, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(245, 245, 250);
 
-            // Верхняя панель с заголовком
-            panelHeader = new Panel
+            // Левая панель с информацией
+            panelLeft = new Panel
             {
-                Size = new Size(520, 110),
+                Size = new Size(280, 450),
                 Location = new Point(0, 0),
-                BackColor = Color.FromArgb(140, 20, 20)
+                BackColor = Color.FromArgb(25, 55, 109)
             };
 
-            // Заголовок
             lblTitle = new Label
             {
-                Text = "ИЗБИРАТЕЛЬНАЯ КОМИССИЯ",
-                Font = new Font("Arial", 18, FontStyle.Bold),
+                Text = "БППК",
+                Font = new Font("Tahoma", 32, FontStyle.Bold),
                 ForeColor = Color.White,
-                AutoSize = false,
-                Size = new Size(520, 45),
-                Location = new Point(0, 20),
-                TextAlign = ContentAlignment.MiddleCenter
+                Location = new Point(20, 60),
+                AutoSize = true
             };
 
-            // Подзаголовок
             lblSubtitle = new Label
             {
-                Text = "Система учета членов комиссии",
-                Font = new Font("Arial", 10),
-                ForeColor = Color.FromArgb(255, 200, 200),
-                AutoSize = false,
-                Size = new Size(520, 25),
-                Location = new Point(0, 65),
-                TextAlign = ContentAlignment.MiddleCenter
+                Text = "Приемная комиссия\n\nул. Почтовая, 4",
+                Font = new Font("Tahoma", 11),
+                ForeColor = Color.FromArgb(200, 210, 230),
+                Location = new Point(20, 120),
+                Size = new Size(240, 80)
             };
 
-            panelHeader.Controls.Add(lblTitle);
-            panelHeader.Controls.Add(lblSubtitle);
-
-            // Главная панель с полями
-            panelMain = new Panel
-            {
-                Size = new Size(400, 370),
-                Location = new Point(60, 140),
-                BackColor = Color.FromArgb(248, 248, 248),
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Метка имени пользователя
-            lblUsername = new Label
-            {
-                Text = "Логин:",
-                Location = new Point(30, 35),
-                AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
-            };
-
-            // Поле имени пользователя
-            txtUsername = new TextBox
-            {
-                Location = new Point(30, 65),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Метка пароля
-            lblPassword = new Label
-            {
-                Text = "Пароль:",
-                Location = new Point(30, 115),
-                AutoSize = true,
-                Font = new Font("Arial", 11),
-                ForeColor = Color.FromArgb(50, 50, 50)
-            };
-
-            // Поле пароля
-            txtPassword = new TextBox
-            {
-                Location = new Point(30, 145),
-                Size = new Size(340, 30),
-                Font = new Font("Arial", 12),
-                PasswordChar = '*',
-                BorderStyle = BorderStyle.FixedSingle
-            };
-
-            // Кнопка входа
-            btnLogin = new Button
-            {
-                Text = "ВОЙТИ",
-                Location = new Point(30, 205),
-                Size = new Size(340, 48),
-                BackColor = Color.FromArgb(140, 20, 20),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 13, FontStyle.Bold),
-                Cursor = Cursors.Hand
-            };
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.Click += BtnLogin_Click;
-
-            // Кнопка регистрации
-            btnRegister = new Button
-            {
-                Text = "Регистрация",
-                Location = new Point(30, 265),
-                Size = new Size(165, 40),
-                BackColor = Color.FromArgb(80, 80, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 10),
-                Cursor = Cursors.Hand
-            };
-            btnRegister.FlatAppearance.BorderSize = 0;
-            btnRegister.Click += BtnRegister_Click;
-
-            // Кнопка инструкции
             btnInstruction = new Button
             {
-                Text = "Справка",
-                Location = new Point(205, 265),
-                Size = new Size(165, 40),
-                BackColor = Color.FromArgb(60, 60, 60),
+                Text = "Инструкция",
+                Location = new Point(20, 350),
+                Size = new Size(240, 35),
+                BackColor = Color.FromArgb(45, 75, 129),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 10),
+                Font = new Font("Tahoma", 9),
                 Cursor = Cursors.Hand
             };
             btnInstruction.FlatAppearance.BorderSize = 0;
             btnInstruction.Click += BtnInstruction_Click;
 
-            // Добавление контролов на панель
-            panelMain.Controls.Add(lblUsername);
-            panelMain.Controls.Add(txtUsername);
-            panelMain.Controls.Add(lblPassword);
-            panelMain.Controls.Add(txtPassword);
-            panelMain.Controls.Add(btnLogin);
-            panelMain.Controls.Add(btnRegister);
-            panelMain.Controls.Add(btnInstruction);
+            panelLeft.Controls.Add(lblTitle);
+            panelLeft.Controls.Add(lblSubtitle);
+            panelLeft.Controls.Add(btnInstruction);
 
-            this.Controls.Add(panelHeader);
-            this.Controls.Add(panelMain);
+            // Правая панель с формой входа
+            panelRight = new Panel
+            {
+                Size = new Size(420, 450),
+                Location = new Point(280, 0),
+                BackColor = Color.FromArgb(245, 245, 250)
+            };
+
+            Label lblFormTitle = new Label
+            {
+                Text = "Вход в систему",
+                Font = new Font("Tahoma", 16, FontStyle.Bold),
+                ForeColor = Color.FromArgb(25, 55, 109),
+                Location = new Point(40, 60),
+                AutoSize = true
+            };
+
+            lblUsername = new Label
+            {
+                Text = "Имя пользователя",
+                Location = new Point(40, 120),
+                AutoSize = true,
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
+            };
+
+            txtUsername = new TextBox
+            {
+                Location = new Point(40, 145),
+                Size = new Size(320, 28),
+                Font = new Font("Tahoma", 11),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            lblPassword = new Label
+            {
+                Text = "Пароль",
+                Location = new Point(40, 190),
+                AutoSize = true,
+                Font = new Font("Tahoma", 10),
+                ForeColor = Color.FromArgb(60, 60, 60)
+            };
+
+            txtPassword = new TextBox
+            {
+                Location = new Point(40, 215),
+                Size = new Size(320, 28),
+                Font = new Font("Tahoma", 11),
+                PasswordChar = '*',
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            btnLogin = new Button
+            {
+                Text = "Войти",
+                Location = new Point(40, 280),
+                Size = new Size(320, 45),
+                BackColor = Color.FromArgb(25, 55, 109),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Tahoma", 11, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.Click += BtnLogin_Click;
+
+            btnRegister = new Button
+            {
+                Text = "Создать аккаунт",
+                Location = new Point(40, 335),
+                Size = new Size(320, 40),
+                BackColor = Color.Transparent,
+                ForeColor = Color.FromArgb(25, 55, 109),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Tahoma", 10),
+                Cursor = Cursors.Hand
+            };
+            btnRegister.FlatAppearance.BorderColor = Color.FromArgb(25, 55, 109);
+            btnRegister.FlatAppearance.BorderSize = 1;
+            btnRegister.Click += BtnRegister_Click;
+
+            panelRight.Controls.AddRange(new Control[] { lblFormTitle, lblUsername, txtUsername, lblPassword, txtPassword, btnLogin, btnRegister });
+
+            this.Controls.Add(panelLeft);
+            this.Controls.Add(panelRight);
+
+            txtPassword.KeyPress += (s, e) => { if (e.KeyChar == (char)Keys.Enter) BtnLogin_Click(s, e); };
+            txtUsername.KeyPress += (s, e) => { if (e.KeyChar == (char)Keys.Enter) txtPassword.Focus(); };
         }
 
-        private void SetupUI()
+        private void BtnInstruction_Click(object? sender, EventArgs e)
         {
-            this.AcceptButton = btnLogin;
+            string instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Инструкция_пользователя.docx");
+
+            if (!File.Exists(instructionPath))
+            {
+                instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Инструкция_пользователя.docx");
+            }
+
+            if (File.Exists(instructionPath))
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = instructionPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Не удалось открыть инструкцию: {ex.Message}", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Файл инструкции не найден!", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void BtnLogin_Click(object? sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Заполните все поля!", "Внимание",
+                MessageBox.Show("Пожалуйста, введите имя пользователя и пароль!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                string passwordHash = DatabaseInitializer.HashPassword(password);
-
                 using (var connection = DatabaseContext.GetConnection())
                 {
                     connection.Open();
-                    string query = "SELECT Id, FullName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
-
+                    string query = "SELECT FullName, IsAdmin FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
                     using (var command = new SQLiteCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                        command.Parameters.AddWithValue("@Username", txtUsername.Text);
+                        command.Parameters.AddWithValue("@PasswordHash", DatabaseInitializer.HashPassword(txtPassword.Text));
 
                         using (var reader = command.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                int userId = reader.GetInt32(0);
-                                string fullName = reader.GetString(1);
-                                bool isAdmin = reader.GetInt32(2) == 1;
-
-                                MessageBox.Show($"Добро пожаловать, {fullName}!", "Вход выполнен",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                this.Hide();
-                                MainForm mainForm = new MainForm(userId, fullName, isAdmin);
-                                mainForm.FormClosed += (s, args) => this.Close();
-                                mainForm.Show();
+                                LoggedInUser = txtUsername.Text;
+                                LoggedInFullName = reader.GetString(0);
+                                IsAdmin = reader.GetInt32(1) == 1;
+                                this.DialogResult = DialogResult.OK;
+                                this.Close();
                             }
                             else
                             {
-                                MessageBox.Show("Неверный логин или пароль!", "Ошибка",
+                                MessageBox.Show("Неверное имя пользователя или пароль!", "Ошибка входа",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
@@ -236,43 +247,20 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка при входе: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnRegister_Click(object? sender, EventArgs e)
         {
-            RegisterForm registerForm = new RegisterForm();
-            registerForm.ShowDialog();
-        }
-
-        private void BtnInstruction_Click(object? sender, EventArgs e)
-        {
-            try
+            using (var registerForm = new RegisterForm())
             {
-                string instructionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "..", "..", "..", "..", "Инструкция_пользователя.docx");
-                instructionPath = Path.GetFullPath(instructionPath);
-
-                if (File.Exists(instructionPath))
+                if (registerForm.ShowDialog() == DialogResult.OK)
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = instructionPath,
-                        UseShellExecute = true
-                    });
+                    MessageBox.Show("Регистрация успешна! Теперь вы можете войти.", "Успех",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
-                {
-                    MessageBox.Show($"Файл справки не найден:\n{instructionPath}", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

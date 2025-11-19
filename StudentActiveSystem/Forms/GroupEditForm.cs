@@ -30,25 +30,25 @@ namespace StudentActiveSystem.Forms
 
         private void InitializeComponent()
         {
-            this.Text = _groupId.HasValue ? "Редактирование участка" : "Добавление участка";
+            this.Text = _groupId.HasValue ? "Редактирование специальности" : "Добавление специальности";
             this.Size = new Size(520, 420);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(245, 245, 250);
 
             // Верхняя панель
             panelHeader = new Panel
             {
                 Size = new Size(520, 60),
                 Location = new Point(0, 0),
-                BackColor = Color.FromArgb(140, 20, 20)
+                BackColor = Color.FromArgb(25, 55, 109)
             };
 
             lblTitle = new Label
             {
-                Text = _groupId.HasValue ? "РЕДАКТИРОВАНИЕ УЧАСТКА" : "ДОБАВЛЕНИЕ УЧАСТКА",
-                Font = new Font("Arial", 12, FontStyle.Bold),
+                Text = _groupId.HasValue ? "РЕДАКТИРОВАНИЕ СПЕЦИАЛЬНОСТИ" : "ДОБАВЛЕНИЕ СПЕЦИАЛЬНОСТИ",
+                Font = new Font("Tahoma", 12, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = false,
                 Size = new Size(520, 60),
@@ -57,21 +57,21 @@ namespace StudentActiveSystem.Forms
             };
             panelHeader.Controls.Add(lblTitle);
 
-            Label lblName = new Label { Text = "Название участка:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            txtName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
+            Label lblName = new Label { Text = "Код специальности:", Location = new Point(30, 80), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            txtName = new TextBox { Location = new Point(30, 105), Size = new Size(440, 28), Font = new Font("Tahoma", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblFaculty = new Label { Text = "Адрес:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
-            txtFaculty = new TextBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Arial", 11), BorderStyle = BorderStyle.FixedSingle };
+            Label lblFaculty = new Label { Text = "Название специальности:", Location = new Point(30, 145), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
+            txtFaculty = new TextBox { Location = new Point(30, 170), Size = new Size(440, 28), Font = new Font("Tahoma", 11), BorderStyle = BorderStyle.FixedSingle };
 
-            Label lblCourse = new Label { Text = "Номер участка:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Arial", 10), ForeColor = Color.FromArgb(50, 50, 50) };
+            Label lblCourse = new Label { Text = "Порядок отображения:", Location = new Point(30, 210), AutoSize = true, Font = new Font("Tahoma", 10), ForeColor = Color.FromArgb(60, 60, 60) };
             numCourse = new NumericUpDown
             {
                 Location = new Point(30, 235),
                 Size = new Size(440, 28),
-                Font = new Font("Arial", 11),
+                Font = new Font("Tahoma", 11),
                 Minimum = 1,
-                Maximum = 9999,
-                Value = 1001
+                Maximum = 100,
+                Value = 1
             };
 
             btnSave = new Button
@@ -79,10 +79,10 @@ namespace StudentActiveSystem.Forms
                 Text = "Сохранить",
                 Location = new Point(30, 300),
                 Size = new Size(210, 42),
-                BackColor = Color.FromArgb(140, 20, 20),
+                BackColor = Color.FromArgb(25, 55, 109),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 11, FontStyle.Bold),
+                Font = new Font("Tahoma", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnSave.FlatAppearance.BorderSize = 0;
@@ -93,10 +93,10 @@ namespace StudentActiveSystem.Forms
                 Text = "Отмена",
                 Location = new Point(260, 300),
                 Size = new Size(210, 42),
-                BackColor = Color.FromArgb(80, 80, 80),
+                BackColor = Color.FromArgb(120, 120, 120),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Arial", 11, FontStyle.Bold),
+                Font = new Font("Tahoma", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             btnCancel.FlatAppearance.BorderSize = 0;
@@ -130,7 +130,7 @@ namespace StudentActiveSystem.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки данных участка: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка загрузки данных специальности: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -139,14 +139,14 @@ namespace StudentActiveSystem.Forms
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Пожалуйста, введите название участка!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите код специальности!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtFaculty.Text))
             {
-                MessageBox.Show("Пожалуйста, введите адрес участка!", "Ошибка",
+                MessageBox.Show("Пожалуйста, введите название специальности!", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -182,7 +182,7 @@ namespace StudentActiveSystem.Forms
                     }
                 }
 
-                MessageBox.Show("Участок успешно сохранен!", "Успех",
+                MessageBox.Show("Специальность успешно сохранена!", "Успех",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
